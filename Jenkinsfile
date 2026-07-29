@@ -8,7 +8,7 @@ pipeline {
         appVersion = ""
       }
       options {
-        timeout(time: 120, unit: 'SECONDS')
+        timeout(time: 10, unit: 'SECONDS')
       }
     stages {
         stage('read version') {
