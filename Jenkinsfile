@@ -8,23 +8,14 @@ pipeline {
         appVersion = ""
       }
       options {
-        timeout(time: 60, unit: 'SECONDS')
+        timeout(time: 120, unit: 'SECONDS')
       }
     stages {
-        stage('install dependancies') {
+        stage('read version') {
             steps {
                script {
 		            sh """
-                     npm install
-                  """
-   		}
-            }
-        }
-        stage('read version') {
-            steps {
-                script {
-		          sh """
-                    // Read the package.json file into an object
+                     // Read the package.json file into an object
                     def packageJson = readJSON file: 'package.json'
                     
                     // Extract the version field
@@ -32,6 +23,15 @@ pipeline {
                     
                     // Print or use the variable in subsequent steps
                     echo "The application version is: ${appVersion}"
+                  """
+   		}
+            }
+        }
+        stage('install dependancies') {
+            steps {
+                script {
+		          sh """
+                    npm install
                   """
    		}
             }
